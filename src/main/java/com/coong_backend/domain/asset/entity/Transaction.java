@@ -1,5 +1,6 @@
 package com.coong_backend.domain.asset.entity;
 
+import com.coong_backend.domain.asset.type.TransactionType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class TransactionRecord {
+public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,8 +25,9 @@ public class TransactionRecord {
     @Column(name = "amount")
     private Integer amount;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "transaction_type")
-    private String transactionType;
+    private TransactionType transactionType;
 
     @Column(name = "content")
     private String content;
@@ -38,12 +40,13 @@ public class TransactionRecord {
     private Account account;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "card_id", nullable = false)
+    @JoinColumn(name = "card_id", nullable = true)
     private Card card;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", nullable = false)
-    private TransactionCategory category;
+    @JoinColumn(name = "category_id")
+    private Category category; // Transaction 안의 category(String) 필드 대신
+
 
 
 }

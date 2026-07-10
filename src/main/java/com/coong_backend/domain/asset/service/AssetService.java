@@ -1,8 +1,11 @@
 package com.coong_backend.domain.asset.service;
 
-import com.coong_backend.domain.asset.dto.AssetResponseDto;
+import com.coong_backend.domain.asset.dto.AccountDto;
+import com.coong_backend.domain.asset.dto.AssetDto;
+import com.coong_backend.domain.asset.entity.Account;
 import com.coong_backend.domain.asset.entity.Asset;
 import com.coong_backend.domain.asset.repository.AssetRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,17 +17,18 @@ import java.util.List;
 public class AssetService {
     private final AssetRepository assetRepository;
 
-    public List<AssetResponseDto> findAll(){
+    public List<AssetDto> findAll(){
         List<Asset> assets = assetRepository.findAll();
 
-        List<AssetResponseDto> assetDtoList = new ArrayList<>();
+        List<AssetDto> assetDtoList = new ArrayList<>();
 
         if(!assets.isEmpty()){
 
             assets.forEach(a -> {
-                assetDtoList.add(new AssetResponseDto(a));
+                assetDtoList.add(new AssetDto(a));
             });
         }
         return assetDtoList;
     }
+
 }

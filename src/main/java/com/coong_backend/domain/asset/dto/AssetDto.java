@@ -6,12 +6,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AssetResponseDto {
+public class AssetDto {
     private Long id;
     private String name;
     private int amount;
 
-    public AssetResponseDto(Asset asset) {
+    public AssetDto(Asset asset) {
         this.id = asset.getId();
         this.name = asset.getName();
         this.amount = asset.getAmount();

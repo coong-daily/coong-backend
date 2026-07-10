@@ -1,5 +1,7 @@
 package com.coong_backend.domain.asset.entity;
 
+import com.coong_backend.domain.asset.type.AccountStatus;
+import com.coong_backend.domain.asset.type.AccountType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,14 +24,18 @@ public class Account {
     @Column(name = "account_number")
     private String accountNumber;
 
+    @Column(name = "account_name")
+    private String accountName;
+
     @Column(name = "balance")
     private Integer balance;
 
     @Column(name = "bank")
     private String bank;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "account_type")
-    private String accountType;
+    private AccountType accountType;
 
     @Column(name = "expiry_date")
     private LocalDate expiryDate;
@@ -37,8 +43,9 @@ public class Account {
     @Column(name = "currency")
     private String currency;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private String status;
+    private AccountStatus status;
 
     @Column(name = "memo")
     private String memo;
@@ -47,5 +54,21 @@ public class Account {
     private List<Card> cards;
 
     @OneToMany(mappedBy = "account")
-    private List<TransactionRecord> transactions;
+    private List<Transaction> transactions;
+
+    /**
+     * 계좌 정보 수정 비즈니스 메서드 (전체 필드 반영)
+     */
+    public void update(String accountNumber, String accountName, Integer balance, String bank, AccountType accountType,
+                       LocalDate expiryDate, String currency, AccountStatus status, String memo) {
+        this.accountNumber = accountNumber;
+        this.accountName = accountName;
+        this.balance = balance;
+        this.bank = bank; // 이제 타입이 일치하여 정상 작동합니다.
+        this.accountType = accountType;
+        this.expiryDate = expiryDate;
+        this.currency = currency;
+        this.status = status;
+        this.memo = memo;
+    }
 }

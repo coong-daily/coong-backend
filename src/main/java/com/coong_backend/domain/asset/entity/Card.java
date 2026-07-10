@@ -22,6 +22,9 @@ public class Card {
     @Column(name = "card_number")
     private String cardNumber;
 
+    @Column(name = "card_name")
+    private String cardName;
+
     @Column(name = "expiry_date")
     private LocalDate expiryDate;
 
@@ -39,6 +42,6 @@ public class Card {
     private Account account;
 
     @OneToMany(mappedBy = "card")
-    private List<TransactionRecord> transactions;
+    private List<Transaction> transactions;
 
 }
