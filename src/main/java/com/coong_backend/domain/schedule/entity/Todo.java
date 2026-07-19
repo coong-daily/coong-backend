@@ -1,9 +1,11 @@
 package com.coong_backend.domain.schedule.entity;
 
+import com.coong_backend.domain.schedule.type.TodoPriority;
+import com.coong_backend.domain.schedule.type.TodoStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "Todo")
@@ -18,26 +20,34 @@ public class Todo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "title")
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "content")
-    private String content;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private TodoStatus status;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "priority")
+    private TodoPriority priority;
+
+    @Column(name = "due_date")
+    private LocalDate dueDate;
+
+    @Column(name = "progress")
+    private Integer progress;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDate createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(name = "category_id")
     private PlanCategory category;
 
-    @Column(name = "status")
-    private String status;
-
-    @Column(name = "priority")
-    private Integer priority;
-
-    @Column(name = "done_time")
-    private LocalDateTime doneTime;
-
-    @Column(name = "start_date")
-    private LocalDateTime startDate;
-
+    @PrePersist
+    protected void onCreate() {
+        if (createdAt == null) {
+            createdAt = LocalDate.now();
+        }
+    }
 }
