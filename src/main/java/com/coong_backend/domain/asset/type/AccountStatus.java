@@ -1,7 +1,5 @@
 package com.coong_backend.domain.asset.type;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-
 public enum AccountStatus {
     ACTIVE("활동"),
     TERMINATED("해지"),

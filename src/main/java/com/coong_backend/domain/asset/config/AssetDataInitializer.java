@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class DataInitializer implements CommandLineRunner {
+public class AssetDataInitializer implements CommandLineRunner {
 
     private final AccountRepository accountRepository;
     private final CardRepository cardRepository;
