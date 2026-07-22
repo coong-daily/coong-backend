@@ -1,4 +1,4 @@
-package com.coong_backend.domain.schedule.entity;
+package com.coong_backend.domain.habit.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
